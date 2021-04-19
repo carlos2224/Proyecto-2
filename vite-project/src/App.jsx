@@ -1,13 +1,36 @@
+import TaskForm from './components/TaskForm'
+import TaskList from './components/TaskList'
+import TaskItem from './components/TaskItem'
+import useLocalStorage from './hooks/useLocalStorage'
 import React from 'react'
-import AlertButton from './components/AlertButton'
-import './global.css'
 
 function App() {
-  return (
+  const [tasks, setTasks] = useLocalStorage("storedTasks", [])
+
+  function handleSubmit(task) {
+    setTasks([...tasks, task])
+  }
+
+  function handleTaskClick(id) {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
+  return (                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
     <div>
-      <h1>Title</h1>
+      <h1>Todo List</h1>
+      <p>Pending tasks: {tasks.length}</p>
+      <TaskForm onSubmit={handleSubmit} />
+      <TaskList>
+        {tasks.map(task => (
+          <TaskItem 
+          key={task.id} 
+          id={task.id} 
+          title={task.title} 
+          onClick={handleTaskClick} />
+        ))}
+      </TaskList>
     </div>
-  )
-}
+   )
+  }
 
 export default App
